@@ -18,7 +18,7 @@ extension UIColor {
 
 extension UIView {
     func addCornerRadius() {
-        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.cornerRadius = self.frame.height / 2.75
         self.clipsToBounds = true
     }
 }

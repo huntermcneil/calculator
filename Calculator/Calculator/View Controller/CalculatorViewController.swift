@@ -41,7 +41,7 @@ class CalculatorViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
     }
     
     //MARK: - Actions
@@ -56,16 +56,92 @@ class CalculatorViewController: UIViewController {
             
         } else {
             
-            resultsLabel.text = resultsLabel.text! + String(sender.tag-1)
+            resultsLabel.text = resultsLabel.text! + String(sender.tag)
             
             numberOnScreen = Double(resultsLabel.text!)!
         }
     }
     
-    //MARK: - Methods
-    func setupView() {
-        self.view.backgroundColor = .calculatorBackground
-        self.resultsLabel.backgroundColor = .calculatorBackground
+    @IBAction func commandButtons(_ sender: UIButton) {
+        if resultsLabel.text != "" && sender.tag != 16 {
+        previousNumber = Double(resultsLabel.text!)!
+        
+        if sender.tag == 12 { //Divide
+            
+            resultsLabel.text = "/";
+            
+        }
+        
+        if sender.tag == 13 { //Multiply
+            
+            resultsLabel.text = "x";
+            
+        }
+        
+        if sender.tag == 14 { //Subtract
+            
+            resultsLabel.text = "-";
+            
+        }
+        
+        if sender.tag == 15 { //Add
+            
+            resultsLabel.text = "+";
+            
+        }
+        
+        operation = sender.tag
+        
+        performingMath = true;
         
     }
+    
+    else if sender.tag == 16 {
+    
+    if operation == 12{ //Divide
+    
+    resultsLabel.text = String(previousNumber / numberOnScreen)
+    
+    }
+    
+    else if operation == 13{ //Multiply
+    
+    resultsLabel.text = String(previousNumber * numberOnScreen)
+    
+    }
+    
+    else if operation == 14{ //Subtract
+    
+    resultsLabel.text = String(previousNumber - numberOnScreen)
+    
+    }
+    
+    else if operation == 15{ //Add
+    
+    resultsLabel.text = String(previousNumber + numberOnScreen)
+    
+    }
+    
+    }
+    
+    else if sender.tag == 11{
+    
+    resultsLabel.text = ""
+    
+    previousNumber = 0;
+    
+    numberOnScreen = 0;
+    
+    operation = 0;
+    
+    }
+}
+
+
+//MARK: - Methods
+func setupView() {
+    self.view.backgroundColor = .calculatorBackground
+    self.resultsLabel.backgroundColor = .calculatorBackground
+    self.resultsLabel.textColor = .numbersColor
+}
 }
